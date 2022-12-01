@@ -51,7 +51,13 @@ exports.signup = (req, res, next) => {
                             .then((response) => {
                                 res.status(200).json({
                                     success: true,
-                                    result: response,
+                                    result: {
+                                        id: response._id,
+                                        name: response.name,
+                                        email: response.email,
+                                        createdAt: response.createdAt,
+                                        updatedAt: response.updatedAt
+                                    },
                                 });
                             })
                             .catch((err) => {
@@ -115,8 +121,7 @@ exports.signin = (req, res) => {
                                 if (decoded) {
                                     return res.status(200).json({
                                         success: true,
-                                        token: access_token,
-                                        message: user,
+                                        token: access_token
                                     });
                                 }
                             }
